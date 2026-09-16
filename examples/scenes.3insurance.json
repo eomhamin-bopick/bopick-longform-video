@@ -1,0 +1,956 @@
+{
+ "project": "store-3insurance",
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "theme": "store-light",
+ "source": {
+  "video": "public/src/talk.mp4",
+  "original": "<촬영본>.MOV",
+  "words": "data/words.json",
+  "sentences": "data/sentences.json",
+  "cuts": "data/cuts.json",
+  "captions": "data/captions.json",
+  "durationSec": 412.9
+ },
+ "anchorNote": "anchor는 sentences.json 인덱스. srcStart/srcEnd는 원본(컷 전) 초 단위 참고값이며 렌더 시 timemap이 컷 후 시각으로 변환한다.",
+ "layoutDefaults": {
+  "face-main": {
+   "overlayZone": "right-top"
+  },
+  "graphic-pip": {
+   "pip": {
+    "shape": "card",
+    "size": [
+     512,
+     288
+    ],
+    "pos": "br",
+    "margin": 48
+   }
+  }
+ },
+ "captionStyle": {
+  "cueMax": 34,
+  "oneLineMax": 18,
+  "minTail": 6,
+  "keywordMaxPerCue": 1,
+  "keywordColor": "#FF6A45",
+  "box": "rgba(23,23,25,.86)"
+ },
+ "cuts": {
+  "silenceThresholdSec": 0.7,
+  "silenceKeepSec": 0.25,
+  "sentenceEndKeepSec": 0.4,
+  "retakeWindowWords": 6,
+  "whitelistSentences": [
+   [
+    16,
+    18
+   ],
+   [
+    53,
+    55
+   ]
+  ]
+ },
+ "scenes": [
+  {
+   "id": "ch1-hook",
+   "title": "훅 — 매달 보험료 한숨 → 월 30만 원 줄었다",
+   "anchor": {
+    "fromSentence": 0,
+    "toSentence": 14,
+    "srcStart": 3.42,
+    "srcEnd": 67.42
+   },
+   "layout": "face-main",
+   "pip": null,
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 11,
+      "toSentence": 12,
+      "srcStart": 53.64,
+      "srcEnd": 59.84
+     },
+     "motion": {
+      "type": "statCount",
+      "data": {
+       "from": 0,
+       "to": 30,
+       "prefix": "월 ",
+       "suffix": "만 원 절약",
+       "caption": "직접 정리한 결과"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 13,
+      "toSentence": 14,
+      "srcStart": 61.16,
+      "srcEnd": 67.42
+     },
+     "motion": {
+      "type": "numberCards",
+      "data": {
+       "cards": [
+        "?",
+        "?",
+        "?"
+       ],
+       "title": "최소한 이 세 가지"
+      }
+     }
+    }
+   ],
+   "character": {
+    "pose": "wave",
+    "anchor": "fromSentence:0"
+   },
+   "keywords": [
+    "한숨",
+    "몇십만 원",
+    "30만 원",
+    "세 가지"
+   ]
+  },
+  {
+   "id": "ch2-repeat",
+   "title": "따라읽기 — 사망·실손·진단비",
+   "anchor": {
+    "fromSentence": 15,
+    "toSentence": 20,
+    "srcStart": 68.44,
+    "srcEnd": 81.08
+   },
+   "layout": "face-main",
+   "pip": null,
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 16,
+      "toSentence": 20,
+      "srcStart": 70.58,
+      "srcEnd": 81.08
+     },
+     "motion": {
+      "type": "numberCards",
+      "data": {
+       "cards": [
+        "사망 보장",
+        "실손 보장",
+        "진단비 보장"
+       ],
+       "revealByWord": true,
+       "pulseOnRepeat": true
+      }
+     }
+    }
+   ],
+   "character": null,
+   "keywords": [
+    "사망 보장",
+    "실손 보장",
+    "진단비 보장"
+   ],
+   "cutWhitelist": true
+  },
+  {
+   "id": "ch3-death",
+   "title": "사망 보장 — 기간이 핵심",
+   "anchor": {
+    "fromSentence": 21,
+    "toSentence": 33,
+    "srcStart": 81.8,
+    "srcEnd": 135.22
+   },
+   "layout": "graphic-pip",
+   "pip": {
+    "shape": "card",
+    "pos": "br"
+   },
+   "spine": {
+    "index": 1,
+    "total": 3
+   },
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 23,
+      "toSentence": 25,
+      "srcStart": 90.28,
+      "srcEnd": 98.64
+     },
+     "motion": {
+      "type": "eitherOr",
+      "data": {
+       "a": "오래 들수록 좋다",
+       "b": "기간이 핵심",
+       "reveal": "b",
+       "strike": "a"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 26,
+      "toSentence": 29,
+      "srcStart": 99.46,
+      "srcEnd": 121.72
+     },
+     "motion": {
+      "type": "ageTimeline",
+      "data": {
+       "min": 0,
+       "max": 100,
+       "marker": {
+        "label": "자녀 독립",
+        "age": "?"
+       },
+       "bad": {
+        "label": "100세까지",
+        "age": 100,
+        "color": "coral"
+       },
+       "good": {
+        "label": "독립 시점까지",
+        "color": "blue"
+       }
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 30,
+      "toSentence": 33,
+      "srcStart": 122.3,
+      "srcEnd": 135.22
+     },
+     "motion": {
+      "type": "keywordTypo",
+      "data": {
+       "text": "내 사망 보장,\n몇 세까지?"
+      }
+     }
+    }
+   ],
+   "character": {
+    "pose": "think",
+    "anchor": "fromSentence:30"
+   },
+   "keywords": [
+    "기간",
+    "독립할 시점",
+    "100세",
+    "몇 세까지"
+   ]
+  },
+  {
+   "id": "ch4-medical",
+   "title": "실손 보장 — 가입 시기(세대)에 따라 조건이 다르다",
+   "anchor": {
+    "fromSentence": 34,
+    "toSentence": 45,
+    "srcStart": 136.6,
+    "srcEnd": 193.48
+   },
+   "layout": "graphic-pip",
+   "pip": {
+    "shape": "card",
+    "pos": "br"
+   },
+   "spine": {
+    "index": 2,
+    "total": 3
+   },
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 36,
+      "toSentence": 38,
+      "srcStart": 141.6,
+      "srcEnd": 148.9
+     },
+     "motion": {
+      "type": "speechBubble",
+      "data": {
+       "text": "어? 왜 이만큼밖에?"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 39,
+      "toSentence": 42,
+      "srcStart": 149.76,
+      "srcEnd": 175.82
+     },
+     "motion": {
+      "type": "generationTable",
+      "data": {
+       "title": "실손보험, 언제 가입했느냐가 조건을 가른다",
+       "columns": [
+        {
+         "key": "gen",
+         "label": "세대"
+        },
+        {
+         "key": "period",
+         "label": "가입 시기"
+        },
+        {
+         "key": "copayPay",
+         "label": "자기부담 · 급여"
+        },
+        {
+         "key": "copayNonPay",
+         "label": "자기부담 · 비급여"
+        },
+        {
+         "key": "renew",
+         "label": "갱신 주기"
+        }
+       ],
+       "rows": [
+        {
+         "gen": "1세대",
+         "label": "구실손",
+         "period": "~2009년 9월",
+         "copayPay": "손보 0% / 생보 20%",
+         "copayNonPay": "손보 0% / 생보 20%",
+         "renew": "3년 or 5년",
+         "term": "80세 or 100세까지",
+         "limit": "입원 1억 · 통원 30만"
+        },
+        {
+         "gen": "2세대",
+         "label": "표준화 실손",
+         "period": "2009년 10월~2017년 3월",
+         "copayPay": "선택형 10% / 표준형 20%",
+         "copayNonPay": "선택형 10% / 표준형 20%",
+         "renew": "3년(선택형) / 1년(표준형)",
+         "term": "100세까지 / 15년 후 재가입",
+         "limit": "입원 5천만 · 통원 30만"
+        },
+        {
+         "gen": "3세대",
+         "label": "착한실손·新실손",
+         "period": "2017년 4월~2021년 6월",
+         "copayPay": "10% 또는 20%",
+         "copayNonPay": "기본 20% / 특약 30%",
+         "renew": "1년",
+         "term": "15년 후 재가입",
+         "limit": "입원 5천만 · 통원 30만 · 비급여 3종 350/250/300만"
+        },
+        {
+         "gen": "4세대",
+         "label": "새로운 실손",
+         "period": "2021년 7월~현재",
+         "copayPay": "20%",
+         "copayNonPay": "30%",
+         "renew": "1년",
+         "term": "5년 후 재가입",
+         "limit": "입원 5천만 · 통원 20만 (비급여 통원 횟수 별도)",
+         "note": "비급여 보험료 차등제 2024년 적용(할인·할증)"
+        }
+       ],
+       "reveal": "rowByRow",
+       "rowGapFrames": 6,
+       "source": {
+        "text": "출처: 시그널플래너",
+        "style": "credit"
+       }
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 43,
+      "toSentence": 44,
+      "srcStart": 176.76,
+      "srcEnd": 185.22
+     },
+     "motion": {
+      "type": "generationTable",
+      "data": {
+       "keep": true,
+       "highlight": [
+        {
+         "row": 0,
+         "col": "copayPay",
+         "color": "blue",
+         "label": "예전 가입 · 자기부담 0%"
+        },
+        {
+         "row": 3,
+         "col": "copayNonPay",
+         "color": "coral",
+         "label": "최근 가입 · 30%"
+        }
+       ],
+       "question": {
+        "text": "나는 어느 세대?",
+        "col": "period"
+       },
+       "source": {
+        "text": "출처: 시그널플래너",
+        "style": "credit"
+       }
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 45,
+      "toSentence": 45,
+      "srcStart": 185.38,
+      "srcEnd": 193.48
+     },
+     "motion": {
+      "type": "checklist",
+      "data": {
+       "items": [
+        "병원비 내기 전에",
+        "지금 내 실손 조건 확인"
+       ]
+      }
+     }
+    }
+   ],
+   "character": null,
+   "keywords": [
+    "가입한 시기",
+    "세대별",
+    "확인"
+   ],
+   "assets": [
+    "table-data:signalplanner"
+   ]
+  },
+  {
+   "id": "ch5-diagnosis",
+   "title": "진단비 보장 — 소득 공백을 메우는 목돈",
+   "anchor": {
+    "fromSentence": 46,
+    "toSentence": 55,
+    "srcStart": 194.96,
+    "srcEnd": 233.74
+   },
+   "layout": "graphic-pip",
+   "pip": {
+    "shape": "card",
+    "pos": "br"
+   },
+   "spine": {
+    "index": 3,
+    "total": 3
+   },
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 48,
+      "toSentence": 48,
+      "srcStart": 200.06,
+      "srcEnd": 202.78
+     },
+     "motion": {
+      "type": "keywordTypo",
+      "data": {
+       "text": "목돈"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 49,
+      "toSentence": 49,
+      "srcStart": 203.48,
+      "srcEnd": 205.68
+     },
+     "motion": {
+      "type": "iconRow",
+      "data": {
+       "items": [
+        "암",
+        "뇌혈관",
+        "심장"
+       ]
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 50,
+      "toSentence": 51,
+      "srcStart": 206.56,
+      "srcEnd": 219.66
+     },
+     "motion": {
+      "type": "incomeGapStack",
+      "data": {
+       "base": {
+        "label": "치료비 = 실손",
+        "color": "blue"
+       },
+       "gap": {
+        "label": "소득 공백",
+        "color": "coral"
+       }
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 52,
+      "toSentence": 52,
+      "srcStart": 220.78,
+      "srcEnd": 225.86
+     },
+     "motion": {
+      "type": "ageTimeline",
+      "data": {
+       "emphasis": "long",
+       "label": "최대한 길게"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 53,
+      "toSentence": 55,
+      "srcStart": 226.46,
+      "srcEnd": 233.74
+     },
+     "motion": {
+      "type": "numberCards",
+      "data": {
+       "cards": [
+        "사망 보장",
+        "실손 보장",
+        "진단비 보장"
+       ],
+       "complete": true
+      }
+     }
+    }
+   ],
+   "character": null,
+   "keywords": [
+    "목돈",
+    "소득",
+    "공백",
+    "길게"
+   ],
+   "cutWhitelist": true
+  },
+  {
+   "id": "ch6-asset-vs-cost",
+   "title": "보험은 자산이 아니라 비용",
+   "anchor": {
+    "fromSentence": 56,
+    "toSentence": 62,
+    "srcStart": 234.5,
+    "srcEnd": 271.9
+   },
+   "layout": "graphic-pip",
+   "pip": {
+    "shape": "card",
+    "pos": "br"
+   },
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 57,
+      "toSentence": 58,
+      "srcStart": 237.42,
+      "srcEnd": 243.06
+     },
+     "motion": {
+      "type": "eitherOr",
+      "data": {
+       "a": "자산",
+       "b": "비용",
+       "reveal": "b",
+       "style": "coinFlip"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 59,
+      "toSentence": 60,
+      "srcStart": 243.66,
+      "srcEnd": 256.58
+     },
+     "motion": {
+      "type": "keywordTypo",
+      "data": {
+       "text": "쓰고 없어지는 돈"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 61,
+      "toSentence": 62,
+      "srcStart": 257.34,
+      "srcEnd": 271.9
+     },
+     "motion": {
+      "type": "checklist",
+      "data": {
+       "items": [
+        "부담되지 않는 선에서",
+        "딱 필요한 만큼만"
+       ]
+      }
+     }
+    }
+   ],
+   "character": null,
+   "keywords": [
+    "자산",
+    "비용",
+    "필요한 만큼"
+   ]
+  },
+  {
+   "id": "ch7-misled",
+   "title": "얼떨결에 든 보험·저축인 줄 알았던 사망보험",
+   "anchor": {
+    "fromSentence": 63,
+    "toSentence": 75,
+    "srcStart": 272.52,
+    "srcEnd": 338.46
+   },
+   "layout": "graphic-pip",
+   "pip": {
+    "shape": "card",
+    "pos": "br"
+   },
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 63,
+      "toSentence": 67,
+      "srcStart": 272.52,
+      "srcEnd": 297.58
+     },
+     "motion": null,
+     "broll": {
+      "asset": "higgs-01-handover.png",
+      "kenBurns": true,
+      "prompt": "hands passing an insurance document across a kitchen table, warm home, glossy 3D illustration, off-white canvas pale blue tint, single coral accent, no text, no faces",
+      "focus": "left"
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 68,
+      "toSentence": 70,
+      "srcStart": 298.36,
+      "srcEnd": 311.5
+     },
+     "motion": {
+      "type": "eitherOr",
+      "data": {
+       "a": "저축?",
+       "b": "사망 보장이 주 목적",
+       "reveal": "b"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 71,
+      "toSentence": 74,
+      "srcStart": 312.36,
+      "srcEnd": 334.12
+     },
+     "motion": {
+      "type": "quoteCard",
+      "data": {
+       "style": "textQuote",
+       "asset": null,
+       "real": null,
+       "headline": "저축인 줄 알고 가입한 사망보험",
+       "body": "금융감독원이 이 문제로\n소비자경보를 낸 적이 있어요",
+       "source": {
+        "text": "출처: 금융감독원 소비자경보(나레이션 인용)",
+        "style": "credit"
+       },
+       "note": "실제 보도자료 캡처 없음 — 텍스트 인용 카드만. 화면 캡처처럼 보이게 만들지 않는다"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 75,
+      "toSentence": 75,
+      "srcStart": 335.02,
+      "srcEnd": 338.46
+     },
+     "motion": {
+      "type": "checklist",
+      "data": {
+       "items": [
+        "내 보험 중에 이런 게 있는지 지금 확인"
+       ]
+      }
+     }
+    }
+   ],
+   "character": {
+    "pose": "notify",
+    "anchor": "fromSentence:71"
+   },
+   "keywords": [
+    "얼떨결에",
+    "저축",
+    "소비자 경보",
+    "확인"
+   ]
+  },
+  {
+   "id": "ch8-steps",
+   "title": "정리 순서 3단계",
+   "anchor": {
+    "fromSentence": 76,
+    "toSentence": 82,
+    "srcStart": 339.48,
+    "srcEnd": 377.12
+   },
+   "layout": "graphic-pip",
+   "pip": {
+    "shape": "card",
+    "pos": "br"
+   },
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 78,
+      "toSentence": 79,
+      "srcStart": 346.64,
+      "srcEnd": 358.24
+     },
+     "motion": {
+      "type": "stepFlow",
+      "data": {
+       "steps": [
+        "무작정 해지하지 않기",
+        "새 보험 가입 먼저, 정리는 그다음",
+        "건강 상태 미리 확인"
+       ],
+       "active": 1
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 80,
+      "toSentence": 80,
+      "srcStart": 359.16,
+      "srcEnd": 365.1
+     },
+     "motion": {
+      "type": "stepFlow",
+      "data": {
+       "active": 2
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 81,
+      "toSentence": 81,
+      "srcStart": 365.86,
+      "srcEnd": 370.04
+     },
+     "motion": {
+      "type": "flowchart",
+      "data": {
+       "bad": [
+        "정리 먼저",
+        "보장 공백 구간",
+        "가입"
+       ],
+       "good": [
+        "가입 먼저",
+        "공백 0",
+        "정리"
+       ],
+       "gapColor": "coral"
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 82,
+      "toSentence": 82,
+      "srcStart": 370.88,
+      "srcEnd": 377.12
+     },
+     "motion": {
+      "type": "stepFlow",
+      "data": {
+       "active": 3,
+       "complete": true
+      }
+     }
+    }
+   ],
+   "character": null,
+   "keywords": [
+    "해지하지 마세요",
+    "가입부터",
+    "보장 없는 기간",
+    "건강 상태"
+   ]
+  },
+  {
+   "id": "ch9-cta",
+   "title": "CTA — 카톡 하나, 30초",
+   "anchor": {
+    "fromSentence": 83,
+    "toSentence": 87,
+    "srcStart": 378.34,
+    "srcEnd": 412.16
+   },
+   "layout": "face-main",
+   "pip": null,
+   "beats": [
+    {
+     "anchor": {
+      "fromSentence": 85,
+      "toSentence": 86,
+      "srcStart": 389.84,
+      "srcEnd": 404.52
+     },
+     "motion": {
+      "type": "phoneScene",
+      "data": {
+       "kind": "higgsExample",
+       "asset": "higgs-03-kakao-phone.png",
+       "real": false,
+       "badge": "예시 화면",
+       "pos": "right",
+       "overlayBubbles": [
+        {
+         "side": "me",
+         "text": "안녕하세요, 내 보험 점검 받고 싶어요",
+         "atSentence": 85
+        },
+        {
+         "side": "them",
+         "text": "네! 생년월일·성별·연락처만 보내주시면\n30초 안에 상담 시작해요",
+         "atSentence": 85
+        },
+        {
+         "side": "me",
+         "text": "가입 권유 전화는 안 오나요?",
+         "atSentence": 86
+        },
+        {
+         "side": "them",
+         "text": "네, 권유 전화 절대 없어요",
+         "atSentence": 86
+        }
+       ],
+       "bubbleStyle": "Pretendard 500 26px, keep-all, Remotion에서 렌더(한글 깨짐 방지)",
+       "imageSize": {
+        "w": 2752,
+        "h": 1536
+       },
+       "screenRect": {
+        "x": 1676,
+        "y": 120,
+        "w": 690,
+        "h": 1380
+       },
+       "rotation": 4,
+       "headerH": 190
+      }
+     }
+    },
+    {
+     "anchor": {
+      "fromSentence": 87,
+      "toSentence": 87,
+      "srcStart": 405.2,
+      "srcEnd": 412.16
+     },
+     "motion": {
+      "type": "countdown",
+      "data": {
+       "from": 30,
+       "label": "30초 안에 상담",
+       "arrow": "고정댓글 ↓"
+      }
+     }
+    }
+   ],
+   "character": {
+    "pose": "cheer",
+    "anchor": "fromSentence:87"
+   },
+   "keywords": [
+    "카톡 하나",
+    "30초",
+    "고정 댓글"
+   ],
+   "outro": {
+    "lockup": true,
+    "seconds": 2
+   }
+  }
+ ],
+ "creditStyle": {
+  "font": "Pretendard 500",
+  "size": 18,
+  "color": "#70737C",
+  "opacity": 0.45,
+  "pos": "card-bottom-right",
+  "margin": 16,
+  "appliesTo": [
+   "generationTable",
+   "quoteCard",
+   "statCount(외부 수치일 때)"
+  ]
+ },
+ "higgsQueue": [
+  {
+   "id": "higgs-01-handover",
+   "scene": "ch7-misled",
+   "model": "nano_banana_pro",
+   "aspect": "16:9",
+   "prompt": "hands passing an insurance document folder across a bright kitchen table, warm home, glossy 3D-rendered illustration style consistent with a rounded mascot character, soft off-white canvas with pale blue tint, single coral accent object, no text, no letters, no logos, no faces, empty right third"
+  },
+  {
+   "id": "higgs-02-drawer",
+   "scene": "ch7-misled",
+   "model": "nano_banana_pro",
+   "aspect": "16:9",
+   "prompt": "an open desk drawer with a stack of old faded insurance policy papers and a small coral bookmark, glossy 3D-rendered illustration, off-white canvas pale blue tint, gentle studio light, no text, no letters, no logos, empty right third"
+  },
+  {
+   "id": "higgs-03-kakao-phone",
+   "scene": "ch9-cta",
+   "model": "nano_banana_pro",
+   "aspect": "16:9",
+   "prompt": "a hand holding a modern smartphone at a slight angle showing a messenger chat app with three EMPTY rounded speech bubbles (yellow header bar, white and pale-yellow bubbles), no readable text anywhere, glossy 3D-rendered illustration style, off-white canvas pale blue tint, soft light, phone screen occupies the right half of frame, left half empty for overlays"
+  }
+ ],
+ "bgm": {
+  "enabled": false,
+  "decidedAt": "2026-09-16",
+  "note": "1차·최종 모두 BGM 없음(사용자 결정)"
+ },
+ "fonts": {
+  "family": "Pretendard Variable",
+  "file": "fonts/PretendardVariable.woff2",
+  "license": "SIL OFL 1.1 (fonts/LICENSE.txt)",
+  "source": "https://github.com/orioncactus/pretendard"
+ }
+}

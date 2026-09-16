@@ -1,0 +1,14 @@
+node_modules/
+out/
+public/
+data/words*.json
+data/sentences.json
+data/cuts.json
+data/timeline.json
+.DS_Store
+*.mp4
+*.mov
+*.mp3
+*.png
+*.jpg
+*.woff2

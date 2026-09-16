@@ -1,0 +1,27 @@
+{
+  "name": "longform-episode",
+  "version": "0.1.0",
+  "private": true,
+  "description": "토킹헤드 롱폼 — 전사 싱크 자막 + 브랜드 그래픽 PIP (Remotion). bopick-longform-video 스킬 템플릿",
+  "scripts": {
+    "build:cuts": "node scripts/cuts.mjs",
+    "build:timeline": "node scripts/build-timeline.mjs",
+    "studio": "remotion studio src/index.ts",
+    "stills": "node scripts/stills.mjs",
+    "render": "remotion render src/index.ts Episode out/final.mp4 --codec=h264 --crf=18",
+    "build:sentences": "node scripts/sentences.mjs",
+    "srt": "node scripts/srt.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.523",
+    "@remotion/bundler": "^4.0.523",
+    "@remotion/renderer": "^4.0.523",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.523",
+    "typescript": "^5.9.3"
+  }
+}
