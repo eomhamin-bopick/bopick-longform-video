@@ -9,7 +9,7 @@
   "cuts": { "silenceThresholdSec": 0.7, "silenceKeepSec": 0.25, "sentenceEndKeepSec": 0.4, "retakeWindowWords": 6, "whitelistSentences": [[16, 18], [53, 55]] },
   "creditStyle": { "size": 18, "color": "#70737C", "opacity": 0.45, "pos": "card-bottom-right" },
   "hook": { "coldOpen": { "sec": 5, "intervalSec": 1.2, "cards": [ { "value": "1시간→5분", "label": "전산 야근" }, { "value": "20개", "label": "일일이 로그인하던 전산" }, { "value": "1~2시간", "label": "하루 14시간 중 고객 만나는 시간" } ] } },
-  "audio": { "sfx": true, "bgm": "bgm-light.mp3", "bgmVolume": 0.1 },
+  "audio": { "sfx": true, "bgm": "bgm-light.mp3", "bgmVolume": 0.12 },
   "scenes": [
     {
       "id": "ch3-death", "title": "사망 보장 — 기간이 핵심",          // " — " 앞은 눈썹, 뒤는 타이틀 카드 본문

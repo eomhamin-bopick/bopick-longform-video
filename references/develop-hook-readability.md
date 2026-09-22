@@ -32,7 +32,7 @@
 ## 5. 사운드
 - SFX 자동 매핑(`layers/Sfx.tsx`): 카드 pop · 수치 tick · 체크 check · 리캡 ding · 전환 whoosh · 칩 tap. 볼륨 0.22~0.28.
 - BGM: `scenes.audio = {bgm:"bgm-light.mp3", bgmVolume:0.1}` → `public/audio/`. 나레이션 대비 −20~−22 LU 목표(볼륨 0.08~0.12). 콜드 오픈은 무음.
-- 생성: ElevenLabs `text_to_sound_effects`(pop/tick/whoosh/ding/tap 1초 내외) · `compose_music`(90초 루프, 밝은 마림바/피아노, 드럼 없음). 파일명 고정.
+- **v1.1에 포함됨**: `template/public/sfx/*.mp3` 6종 + `template/public/audio/bgm-light.mp3`(90초 루프, −18 LUFS). 기본 `bgmVolume 0.12`. 다시 만들 땐 ElevenLabs `text_to_sound_effects`·`compose_music`(`template/public/audio/README.md`).
 
 ## 6. 엔딩
 - `recapCard {items[], conclusion}` → CTA → 마지막 15초 `endScreen:true` 씬: 얼굴은 좌측 카드(880×495), 우측·하단 비움(유튜브 엔드 요소 자리), 자막은 카드 아래 중앙.

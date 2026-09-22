@@ -16,7 +16,7 @@ Claude Code에서 "촬영본으로 유튜브 롱폼 만들어줘" 라고 하면 
 - Node 20+ · ffmpeg(PATH 또는 `FFMPEG=/path`) · Python 3 + Pillow(캐릭터 키잉)
 - ElevenLabs API 키(전사) · Higgsfield MCP(B-roll·캐릭터 생성, 선택)
 - Pretendard Variable woff2(OFL): https://github.com/orioncactus/pretendard → `public/fonts/`
-- 브랜드 캐릭터 PNG·마크·효과음은 저장소에 포함하지 않는다(브랜드 자산). 사내 `bopick` 리포에서 가져온다.
+- 효과음 6종·BGM 루프는 v1.1부터 `template/public/sfx`·`template/public/audio`에 포함(ElevenLabs 생성). 브랜드 캐릭터 PNG·마크는 저장소에 포함하지 않는다. 사내 `bopick` 리포에서 가져온다.
 
 ## v1.1 (2026-09-22) — 디벨롭 레이어
 훅(콜드 오픈·약속 카드·첫 그래픽 ≤10s·시각 변화 ≤12s), 가독성(카드 폭·최소 글자·자막 3.5s·정적 홀드 8s), 얼굴 구간 키워드 칩, 챕터 카드, SFX/BGM, 리캡+엔드스크린, `scripts/develop-audit.mjs` 채점, Higgs 플레이북. 담당자 포크 머지: `docs/merge-into-bopick-video-production.md`.

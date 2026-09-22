@@ -1,6 +1,10 @@
 node_modules/
 out/
 public/
+!template/public/
+template/public/*
+!template/public/sfx/
+!template/public/audio/
 data/words*.json
 data/sentences.json
 data/cuts.json
@@ -8,7 +12,6 @@ data/timeline.json
 .DS_Store
 *.mp4
 *.mov
-*.mp3
 *.png
 *.jpg
 *.woff2

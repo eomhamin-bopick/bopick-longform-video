@@ -32,7 +32,7 @@
 // 씬: "chapterCard": {"index":1,"total":3,"title":"실시간 배차"} · 마지막 씬 "endScreen": true
 // 비트: promiseCard · keywordChip · recapCard
 ```
-`public/sfx/` 에 pop·tick·whoosh·check·ding·tap.mp3, `public/audio/bgm-light.mp3`(선택). 없으면 `audio.sfx:false`.
+`template/public/sfx/`(6종)·`template/public/audio/bgm-light.mp3`를 프로젝트 `public/`으로 복사. BGM은 `audio.bgm:"bgm-light.mp3", bgmVolume:0.12`.
 
 ## 4. 순서
 ```bash
