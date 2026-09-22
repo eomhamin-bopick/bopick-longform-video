@@ -20,13 +20,14 @@ const pushSeg = (s, e) => {
 };
 for (const c of removed) { pushSeg(cursor, c.srcStart); cursor = Math.max(cursor, c.srcEnd); }
 pushSeg(cursor, durationSec);
-const OUT_FRAMES = outFrame;
+const PREROLL = Math.round((scenes.hook?.coldOpen?.sec ?? 0) * FPS);   // 콜드 오픈 프리롤: 나레이션 전 무음 그래픽
+const OUT_FRAMES = outFrame + PREROLL;
 
 const toOut = (src, snap) => {
   for (let i = 0; i < segments.length; i++) {
     const s = segments[i];
-    if (src >= s.srcStart && src <= s.srcEnd) return s.outStartFrame + (src - s.srcStart) * FPS;
-    if (src < s.srcStart) return snap === "end" ? (i > 0 ? segments[i - 1].outStartFrame + segments[i - 1].frames : 0) : s.outStartFrame;
+    if (src >= s.srcStart && src <= s.srcEnd) return PREROLL + s.outStartFrame + (src - s.srcStart) * FPS;
+    if (src < s.srcStart) return PREROLL + (snap === "end" ? (i > 0 ? segments[i - 1].outStartFrame + segments[i - 1].frames : 0) : s.outStartFrame);
   }
   return OUT_FRAMES;
 };
@@ -42,17 +43,28 @@ const sentOutEnd = (i) => toOut(sentences[i].end, "end");
 // ---------- 3) 씬·비트 해상 ----------
 const LEAD = 0.15, TAIL = 0.25;
 const norm = (t) => t.replace(/[.,!?…"“”'’()]/g, "");
-const resolvedScenes = scenes.scenes.map((sc) => ({ ...sc, from: Math.max(0, Math.round(sentOutStart(sc.anchor.fromSentence) - LEAD * FPS)), to: Math.round(sentOutEnd(sc.anchor.toSentence) + TAIL * FPS) }));
+const resolvedScenes = scenes.scenes.map((sc) => ({ ...sc, from: Math.max(PREROLL, Math.round(sentOutStart(sc.anchor.fromSentence) - LEAD * FPS)), to: Math.round(sentOutEnd(sc.anchor.toSentence) + TAIL * FPS) }));
+if (PREROLL > 0) {
+  const co = scenes.hook.coldOpen;
+  resolvedScenes.unshift({ id: "ch0-coldopen", title: co.title ?? "", layout: "graphic-only", anchor: { fromSentence: -1, toSentence: -1 }, from: 0, to: PREROLL, keywords: [],
+    beats: [{ anchor: { fromSentence: -1, toSentence: -1 }, from: 0, to: PREROLL, motion: { type: "coldOpen", data: { cards: co.cards, intervalSec: co.intervalSec ?? 1.2 } } }] });
+}
 for (let i = 0; i < resolvedScenes.length; i++) {
   const sc = resolvedScenes[i];
   if (i > 0) sc.from = Math.max(sc.from, resolvedScenes[i - 1].to);
+  if (i > 0 && resolvedScenes[i - 1].id === "ch0-coldopen") sc.from = PREROLL;   // 프리롤 직후 씬은 리드 없이 정확히 이어붙임
+  if (sc.id === "ch0-coldopen") continue;
   sc.to = i < resolvedScenes.length - 1 ? Math.max(sc.from + 1, Math.round(sentOutStart(resolvedScenes[i + 1].anchor.fromSentence) - LEAD * FPS)) : OUT_FRAMES;
 }
 for (const sc of resolvedScenes) {
+  if (sc.id === "ch0-coldopen") continue;
   const beats = (sc.beats || []).map((b) => ({ ...b, from: Math.round(sentOutStart(b.anchor.fromSentence) - 0.1 * FPS), to: Math.round(sentOutEnd(b.anchor.toSentence) + TAIL * FPS) }));
   for (let i = 0; i < beats.length; i++) {
     beats[i].from = Math.max(beats[i].from, sc.from, i > 0 ? beats[i - 1].to : 0);
     beats[i].to = i < beats.length - 1 ? Math.max(beats[i].from + 1, Math.round(sentOutStart(beats[i + 1].anchor.fromSentence) - 0.1 * FPS)) : sc.to;
+    const DEFAULT_MAX_SEC = { keywordChip: 6, speechBubble: 6, statCount: 8 };
+    const maxSec = beats[i].motion?.data?.maxSec ?? DEFAULT_MAX_SEC[beats[i].motion?.type];
+    if (maxSec) beats[i].to = Math.min(beats[i].to, beats[i].from + Math.round(maxSec * FPS));
     const m = beats[i].motion;
     if (m?.type === "numberCards" && m.data.revealByWord) {
       // 카드 라벨의 첫 2글자가 나오는 단어 시각(비트 안) → 1차 등장, 2차 등장은 펄스
@@ -100,6 +112,19 @@ for (let si = 0; si < sentences.length; si++) {
   const mine = cues.filter((c) => c.words[0].start >= ws[0].start);
   if (mine.length >= 2) { const last = mine.at(-1), prev = mine.at(-2); if (dispWidth(last.text) < cs.minTail && dispWidth(prev.text + " " + last.text) <= cs.cueMax * 1.15) { prev.words.push(...last.words); prev.text = prev.words.map((w) => w.text).join(" "); cues.splice(cues.indexOf(last), 1); } }
 }
+// 큐 길이 상한: maxCueSec 초과 시 시간 중앙에 가까운 단어 경계에서 분할(가독성: 한 화면 3.5s)
+const MAX_CUE = (cs.maxCueSec ?? 3.5);
+for (let i = 0; i < cues.length; i++) {
+  const c = cues[i];
+  const span = c.words.at(-1).end - c.words[0].start;
+  if (span <= MAX_CUE || c.words.length < 4) continue;
+  const mid = c.words[0].start + span / 2;
+  let k = 1, best = Infinity;
+  for (let j = 1; j < c.words.length; j++) { const d = Math.abs(c.words[j].start - mid); if (d < best) { best = d; k = j; } }
+  const a = c.words.slice(0, k), b = c.words.slice(k);
+  if (a.at(-1).end - a[0].start < 1.0 || b.at(-1).end - b[0].start < 1.0) continue;
+  cues.splice(i, 1, { words: a, text: a.map((w) => w.text).join(" ") }, { words: b, text: b.map((w) => w.text).join(" ") });
+}
 const sceneAt = (frame) => resolvedScenes.find((s) => frame >= s.from && frame < s.to);
 const captions = cues.map((c) => {
   const start = Math.round(toOut(c.words[0].start, "start")), rawEnd = Math.round(toOut(c.words.at(-1).end, "end"));
@@ -111,12 +136,12 @@ for (let i = 0; i < captions.length - 1; i++) captions[i].end = Math.min(caption
 captions.at(-1).end = Math.min(captions.at(-1).end + Math.round(0.35 * FPS), OUT_FRAMES);
 
 // ---------- 5) 출력 + 게이트 ----------
-const timeline = { fps: FPS, width: scenes.width, height: scenes.height, outFrames: OUT_FRAMES, outSec: +(OUT_FRAMES / FPS).toFixed(2), segments, scenes: resolvedScenes, captions, theme: scenes.theme, creditStyle: scenes.creditStyle, captionStyle: cs, layoutDefaults: scenes.layoutDefaults, generatedAt: new Date().toISOString() };
+const timeline = { fps: FPS, width: scenes.width, height: scenes.height, outFrames: OUT_FRAMES, prerollFrames: PREROLL, audio: scenes.audio ?? {}, outSec: +(OUT_FRAMES / FPS).toFixed(2), segments, scenes: resolvedScenes, captions, theme: scenes.theme, creditStyle: scenes.creditStyle, captionStyle: cs, layoutDefaults: scenes.layoutDefaults, generatedAt: new Date().toISOString() };
 fs.writeFileSync("data/timeline.json", JSON.stringify(timeline, null, 1));
 const maxLine = Math.max(...captions.flatMap((c) => c.lines.map(dispWidth)));
 const orphans = captions.filter((c) => dispWidth(c.text) <= cs.minTail).length;
 const short = captions.filter((c) => c.end - c.start < 0.8 * FPS).length;
 const covered = resolvedScenes.every((s, i) => i === 0 || s.from === resolvedScenes[i - 1].to);
-console.log(`out ${timeline.outSec}s (${Math.floor(timeline.outSec / 60)}:${String(Math.round(timeline.outSec % 60)).padStart(2, "0")}) | segments ${segments.length} | scenes ${resolvedScenes.length} tiled=${covered} | beats ${resolvedScenes.reduce((n, s) => n + s.beats.length, 0)}`);
+console.log(`preroll ${(PREROLL / FPS).toFixed(1)}s | out ${timeline.outSec}s (${Math.floor(timeline.outSec / 60)}:${String(Math.round(timeline.outSec % 60)).padStart(2, "0")}) | segments ${segments.length} | scenes ${resolvedScenes.length} tiled=${covered} | beats ${resolvedScenes.reduce((n, s) => n + s.beats.length, 0)}`);
 console.log(`captions ${captions.length} | max line width ${maxLine.toFixed(1)} (limit 20) | orphans ${orphans} | <0.8s ${short} | keyworded ${captions.filter((c) => c.keyword).length}`);
 for (const s of resolvedScenes) console.log(`  ${s.id.padEnd(18)} ${(s.from / FPS).toFixed(1).padStart(6)}s → ${(s.to / FPS).toFixed(1).padStart(6)}s  ${s.layout}  beats=${s.beats.length}`);

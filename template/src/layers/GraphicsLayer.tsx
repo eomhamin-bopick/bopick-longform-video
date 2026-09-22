@@ -4,6 +4,7 @@ import { STAGE, OVERLAY } from "../theme/store";
 import { MOTIONS } from "../motions";
 import { BRoll } from "../motions/BRoll";
 import { SceneTitle } from "./SceneTitle";
+import { ChapterCard } from "../motions/Develop";
 
 /** mode=stage: graphic-pip 씬의 그래픽(토킹헤드 아래) · mode=overlay: face-main 씬의 오버레이(토킹헤드 위) */
 export const GraphicsLayer: React.FC<{ mode: "stage" | "overlay" }> = ({ mode }) => (
@@ -21,6 +22,9 @@ const SceneBeats: React.FC<{ scene: Scene; mode: "stage" | "overlay" }> = ({ sce
   return (
     <>
       {mode === "stage" && <SceneTitle scene={scene} />}
+      {mode === "stage" && scene.chapterCard && (
+        <Sequence from={0} durationInFrames={45} layout="none"><ChapterCard {...scene.chapterCard} frames={45} /></Sequence>
+      )}
       {scene.beats.map((b, i) => {
         let motion = b.motion;
         if (motion?.type === "generationTable") {                       // keep:true → 앞 비트 표 데이터 이어받기

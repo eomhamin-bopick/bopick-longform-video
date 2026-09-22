@@ -19,3 +19,5 @@ export const STAGE = { x: 120, y: 96, w: 1680, h: 610 } as const;      // graphi
 export const OVERLAY = { x: 1300, y: 110, w: 580, h: 600 } as const;   // face-main 우측 오버레이 컬럼
 export const BODUNG = { x: 24, y: 740, size: 280 } as const;
 export const CAPTION = { bottom: 58, size: 44, sizeLong: 38, centerX: 960, centerXWithPip: 800 } as const;
+export const END = { w: 880, h: 495, x: 96, y: 150, radius: 20 } as const;   // 엔드스크린: 얼굴 카드 좌측, 우측·하단은 유튜브 엔드 요소 자리
+export const READ = { minBody: 32, minHead: 56, cardMinRatio: 0.6, maxCueSec: 3.5, maxHoldSec: 8, maxFaceGapSec: 6, hookFirstGraphicSec: 10, hookChangeSec: 12 } as const;

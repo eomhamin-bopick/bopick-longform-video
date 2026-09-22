@@ -1,4 +1,4 @@
-import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
+import { AbsoluteFill } from "remotion";
 import { loadPretendard } from "./lib/fonts";
 import { TL } from "./lib/data";
 import { C, FONT } from "./theme/store";
@@ -9,6 +9,7 @@ import { Captions } from "./layers/Captions";
 import { Spine } from "./layers/Spine";
 import { Characters } from "./layers/Characters";
 import { Lockup } from "./layers/Lockup";
+import { Sfx } from "./layers/Sfx";
 
 loadPretendard();
 
@@ -25,12 +26,4 @@ export const Episode = () => (
     <Lockup />
     <Sfx />
   </AbsoluteFill>
-);
-
-const Sfx = () => (
-  <>
-    {TL.scenes.flatMap((s) => s.beats).map((b, i) => (
-      <Sequence key={`pop-${i}`} from={b.from} durationInFrames={24}><Audio src={staticFile("sfx/pop.mp3")} volume={0.28} /></Sequence>
-    ))}
-  </>
 );

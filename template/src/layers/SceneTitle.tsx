@@ -9,6 +9,7 @@ export const SceneTitle: React.FC<{ scene: Scene }> = ({ scene }) => {
   const local = frame + scene.from;
   const active = scene.beats.find((b) => local >= b.from - 8 && local < b.to);
   if (active && local >= active.from) return null;
+  if (scene.chapterCard && frame < 45) return null;
   const fadeOut = active ? interpolate(local, [active.from - 8, active.from], [1, 0]) : 1;
   const enter = spring({ frame, fps, config: { damping: 200, mass: 0.7 } });
   const [eyebrow, main] = scene.title.includes(" — ") ? scene.title.split(" — ") : [null, scene.title];

@@ -29,6 +29,11 @@
 | generationTable | title, columns[{key,label}], rows[], reveal:"rowByRow", rowGapFrames, source / keep:true + highlight[{row,col,color,label}], question{text,col} | keep=앞 비트 표 이어받기 |
 | phoneScene | asset, imageSize{w,h}, screenRect{x,y,w,h}, rotation, headerH, overlayBubbles[{side,text,atSentence}], badge:"예시 화면", real:false | 화면 패널이 생성 이미지 말풍선을 덮음. screenRect 없으면 코드 폰 폴백 |
 | countdown | from:30, arrow | 0→30 카운트업 + 링 채움 |
+| coldOpen | cards[{value,label,sub?}], intervalSec | 프리롤 전용(`scenes.hook.coldOpen`) — 무음 5초 |
+| promiseCard | text, count, labels? | 약속 문장 + 빈 번호 카드 |
+| keywordChip | text(1~3어절), accent, sub? | face-main 우측 오버레이, 얼굴 구간 6초 규칙용 |
+| recapCard | items[], conclusion? | 전부 체크 + 결론 |
+| (씬) chapterCard | {index,total,title} | 씬 시작 1.5초 무대 전환 카드(비트 아님) |
 비트에 `broll:{asset, kenBurns, focus:"left"|"center"}` 면 motion 없이 B-roll.
 
 ## 새 모션 추가 규칙
