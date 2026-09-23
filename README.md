@@ -6,11 +6,21 @@
 - 전사(단어 타임스탬프) → 침묵·리테이크 자동 컷 → 문장 2줄 + 키워드 자막 → 씬 매니페스트(문장 번호 앵커) → Remotion 조립 → 스틸 게이트 → mp4 + SRT
 - 원칙: **타임코드가 진실이고 화면은 거기에 붙는다.** 씬은 초가 아니라 문장 번호에 앵커해서 컷이 바뀌어도 안 깨진다.
 
-## 설치
+## 설치 (다른 PC에서 세팅하기)
+원본 저장소(`shinsehoon1998/bopick-longform-video`)는 대표님 계정 소유라 읽기만 되고 푸시는 안 된다.
+그래서 `eomhamin-bopick` 계정으로 포크해서 쓴다 — 새 PC에서는 **포크**를 클론한다.
+
 ```bash
-git clone https://github.com/shinsehoon1998/bopick-longform-video.git ~/.claude/skills/bopick-longform-video
+git clone https://github.com/eomhamin-bopick/bopick-longform-video.git ~/.claude/skills/bopick-longform-video
 ```
-Claude Code에서 "촬영본으로 유튜브 롱폼 만들어줘" 라고 하면 스킬이 활성화된다.
+Claude Code를 열면 자동으로 인식된다. "촬영본으로 유튜브 롱폼 만들어줘" 라고 하면 스킬이 활성화된다.
+
+수정한 내용을 다시 올리려면(포크로 푸시):
+```bash
+cd ~/.claude/skills/bopick-longform-video
+git add -A && git commit -m "설명" && git push
+```
+원본 저장소에도 반영하고 싶으면 대표님께 PR을 보내면 된다 — 로컬에 원본이 `upstream`으로도 등록돼 있다(`git remote -v`로 확인).
 
 ## 필요한 것
 - Node 20+ · ffmpeg(PATH 또는 `FFMPEG=/path`) · Python 3 + Pillow(캐릭터 키잉)
