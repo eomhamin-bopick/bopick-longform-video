@@ -18,7 +18,10 @@
 락업: 마크 28px + "보픽" 잉크 + "스토어" 코랄 글자.
 
 ## 보픽플래너 (설계사 대상) 로 바꿀 때
-코랄 → 민트 #12C7A6(행동), 코랄 글자 → 민트 딥 #0A8F78, 캐릭터 핀이(point/notify/cheer/think/phone/bye), 접미어 "플래너" 잉크. 나머지 동일. `theme/store.ts`의 C.coral/coralInk/coralTint/coralLine 4값과 캐릭터 폴더만 교체.
+> ⚠️ 2026-09-16 정정: 이전 버전은 "코랄→민트"로 적혀 있었으나 틀렸다. **보픽플래너는 블루 계열, 보픽스토어는 코랄 계열**이 맞다(팀 확인).
+
+플래너는 코랄/민트 같은 별도 강조색을 쓰지 않고 **블루 하나로 통일**한다 — 구조색과 강조색이 모두 블루 계열(캔버스·틴트는 스토어와 동일, 강조 role만 코랄 대신 블루 자체나 더 진한 블루 톤 사용). 캐릭터 핀이(point/notify/cheer/think/phone/bye), 접미어 "플래너" 잉크.
+> 정확한 강조용 블루 hex(예: #0066FF를 그대로 쓸지, 더 진한 별도 톤을 쓸지)는 이 문서 작성 시점 기준 확정되지 않았다. `theme/store.ts`에 반영하기 전에 팀에 정확한 값을 확인할 것 — 확인 없이 추측한 hex를 최종본에 박아 넣지 않는다.
 
 ## Higgs 프롬프트 톤 문구
 "bright soft off-white canvas (#F7F7F8) with pale blue tint, glossy 3D-rendered illustration style consistent with a rounded mascot character, gentle studio light, single coral (#FF6A45) accent object only, no text, no letters, no logos, no human face close-up, 16:9" + 장면. "empty right third" 같은 여백 지시는 띠 아티팩트를 만들 수 있으니 결과를 보고 `broll.focus:"left"`로 크롭한다.
